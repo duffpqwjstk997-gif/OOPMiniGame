@@ -5,15 +5,11 @@ public class Hp
     public int hp;
     public int maxHp;
     public Slider hpBar;
-    public Hp(int hp, int maxHp, Slider hpBar)
+    public void UpdateHpBar(int Hp, int MaxHp, Slider HpBar)
     {
-        this.hp = hp;
-        this.maxHp = maxHp;
-        this.hpBar = hpBar;
-        UpdateHpBar();
-    }
-    private void UpdateHpBar()
-    {
+        this.hp = Hp;
+        this.maxHp = MaxHp;
+        this.hpBar = HpBar;
         if (hpBar != null)
         {
             float fillAmount = (float)hp / maxHp;

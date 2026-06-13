@@ -7,8 +7,10 @@ public class Move : MonoBehaviour
     public InputActionReference MoveKey;
     Rigidbody2D rb;
     public Vector2 moveDir = Vector2.right;
+    public Vector2 EmoveDir = Vector2.right;
     public float MoveSpeed = 10f;
     public bool isPlayer = false;
+    public bool isMoving = true;
     public GameObject Target;
 
     private void Awake()
@@ -37,13 +39,14 @@ public class Move : MonoBehaviour
         }
         else if (!isPlayer)
         {
-            Vector2 target = this.Target.transform.position;
+            Vector2 target = Player.instance.transform.position;
             _direction = new Direction(target,transform.position);
+            this.EmoveDir = _direction.KeepdirX;
         }
     }
     private void FixedUpdate()
     {
-        if (_direction != null)
+        if (_direction != null && isMoving)
         {
             rb.linearVelocity = (_direction.KeepdirX * MoveSpeed * Time.deltaTime);
         } 
@@ -51,6 +54,11 @@ public class Move : MonoBehaviour
     private void ReverseDirection(InputAction.CallbackContext context)
     {
         this.moveDir = -moveDir;
+    }
+    public void StopMove()
+    {
+        MoveSpeed = 0f;
+        isMoving = false;
     }
 
 }
